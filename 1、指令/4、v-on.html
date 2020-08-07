@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-on指令，用于绑定事件，还可以简写为@事件名，例如v-on:click="",可以简写为@click="" -->
+        <!-- 事件中，可以直接写js片段 -->
+        <input type="text" v-model="num">
+        <!-- 如果事件处理比较复杂，还可以传一个方法名，该方法必须是Vue实例中的方法 -->
+        <button v-on:click="num++">点赞</button>
+        <button @click="cancel">取消点赞</button>
+        <h1>有{{num}}个赞</h1>
+
+        <!-- 防止事件冒泡 -->
+        <!-- v-on:click.stop，表示停止事件冒泡，点小dev，大div不糊响应事件 -->
+        <!-- v-on:click.prevent，表示阻止元素的默认行为，例如下面的a标签，点击超链接，不会跳转，在prevent后传入方法名，则指定点击后，做什么 -->
+        <!-- 既想阻止默认行为，还想阻止冒泡，则连起来即可，@click.prevent.stop=”“ -->
+        <!-- v-on:click.once，once，只可以点击一次 -->
+        <div style="border: 1px solid red; padding: 20px;" v-on:click="hello">
+            大div
+            <div style="border: 1px solid blue; padding: 20px;" @click.stop="hello">
+                小div
+                <a href="http://www.baidu.com" @click.prevent.stop="hello">去百度</a>
+            </div>
+        </div>
+
+        <!-- 按键修饰符 -->
+        <!-- v-on.keyup.up，按键按下再弹起时，keyup后面跟绑定哪个按键，例如up，就是向上键 -->
+        <!-- v-on.keyup.down，按键按下再弹起时，keyup后面跟down，就是向下键 -->
+        <!-- 还可以监听组合键，例如按住ctrl键，再加点击，则将事件用.号连接即可，就是@click.ctrl -->
+        <input type="text" v-model="num" v-on.keyup.up="num+=2" @keyup.down="num-=2" @click.ctrl="num=10">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",//el绑定元素
+            data: {//data，封装数据
+                num: 1
+            },
+            methods: {//methods封装方法
+                //取消点赞
+                cancel() {
+                    this.num --;
+                },
+                hello() {
+                    alert("点击了");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

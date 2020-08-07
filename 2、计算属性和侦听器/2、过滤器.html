@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 过滤器常用来处理文本格式化的操作，过滤器可以用在两个地方：双花括号插值和v-bind表达式 -->
+        <ul>
+            <li v-for="user in userList">
+                <!-- 插值表达式中使用插值表达式可以，但是如果判断过程很复杂得时候，就不好了，我们使用过滤器 -->
+                <!-- {{user.id}} == {{user.name}} == {{user.gender == 1 ? "男" : "女"}} -->
+                <!-- 使用局部过滤器，|是管道符，格式为：属性值 | 过滤器 -->
+                {{user.id}} == {{user.name}} == {{user.gender | genderFilter}}
+                <!-- 使用全局过滤器 -->
+                全局过滤器：{{user.gender | gFilter}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        //定义全局过滤器
+        Vue.filter("gFilter", function(val) {
+            if(val == 1) {
+                       return "男"
+                   } else {
+                       return "女"
+                   }
+        })
+        var vm = new Vue({
+           el: "#app",
+           data: {
+               userList: [
+                   {id:1, name: "jacky", gender: 1},
+                   {id:2, name: "peter", gender: 0}
+               ]
+           },
+           filters: {
+               //定义过滤器，过滤器是一个方法，这里定义的过滤器都是局部的
+               genderFilter(val) {
+                   if(val == 1) {
+                       return "男"
+                   } else {
+                       return "女"
+                   }
+               }
+           }
+        });
+    </script>
+</body>
+</html>

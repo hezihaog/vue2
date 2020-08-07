@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- v-model，是双向绑定的，就是V层和M层同步 -->
+    <!-- v-model，一般用于表单项，或者自定义组件 -->
+    <div id="app">
+        <h1>精通的语言：</h1>
+        <input v-model="language" type="checkbox" value="Java"/>Java<br/>
+        <input v-model="language" type="checkbox" value="PHP"/>PHP<br/>
+        <input v-model="language" type="checkbox" value="Python"/>Python<br/>
+        选中了：{{language.join(",")}}
+    </div>
+    <script>
+        var vm = new Vue({
+           el: "#app",
+           data: {
+                language: []
+           }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性和侦听器</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 某些结果是基于之前数据实时计算出来的，我们可以利用计算属性来完成 -->
+        <ul>
+            <li>西游记; 价格：{{xyjPrice}}，数量：<input type="number" v-model="xyjNum"></li>
+            <li>水浒传; 价格：{{shzPrice}}，数量：<input type="number" v-model="shzNum"></li>
+            <li>总价：{{totalPrice}}</li>
+            {{msg}}
+        </ul>
+    </div>
+    <script>
+        //监听器watch可以让我们监控一个值的变化，从而做出相应的反应
+        var vm = new Vue({
+           el: "#app" ,
+           data: {
+                xyjPrice: 99.98,
+                shzPrice: 98,
+                xyjNum: 1,
+                shzNum: 1,
+                msg: ""
+           },
+           computed: {//计算属性
+            totalPrice: function() {
+                return (this.xyjPrice * this.xyjNum) + (this.shzPrice * this.shzNum)
+            }
+           },
+           watch: {
+                //监听变量值的变化，属性名写要监听的属性名，值写为一个方法。方法回调传入2个值，分别是当前变化的新值，以及变化前的旧值
+                xyjNum: function(newVal, oldVal) {
+                    var info = "newVal" + "==>" + newVal + "，" + "oldVal" + "==>" + oldVal;
+                    console.log(info);
+                    if(newVal >= 3) {
+                        this.msg = "库存超出限制"
+                        this.xyjNum = 3
+                    } else {
+                        this.msg = ""
+                    }
+                }
+           },
+        });
+    </script>
+</body>
+</html>

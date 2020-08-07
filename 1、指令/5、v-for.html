@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- key属性，写上，提高效率，一定要唯一，例如id或其他的属性，这里用name来做唯一 -->
+            <!-- v-if，配合v-for，可以过滤出都是女的对象，v-if的优先级比v-for低，所以先v-for遍历，再用v-if判断 -->
+            <li v-for="(user,index) in users" :key="user.name" v-if="user.gender == '女'">
+                <!-- 1、显示user信息：v-for="item in items" -->
+                {{index}} == {{user.name}} == {{user.gender}} == {{user.age}} <br>
+                <!-- 2.获取数组下标：v-for="(item,index) in items" -->
+                <!-- 3.遍历对象（属性值value在前，属性名key在后！）
+                    v-for="value in object"
+                    v-for="(value,key) in object"
+                    v-for="(value,key,index) in object"
+                 -->
+                 对象信息：
+                 <span v-for="(v,k,i) in user">{{k}} -- {{v}} -- {{i}}，</span>
+                 <!-- 遍历的时候都加上：key来区分不同数据，提高vue渲染效率 -->
+            </li>
+        </ul>
+        <ul>
+            <!-- 如果是单纯的数据数组，没有一个位置，那么久拿索引index -->
+            <li v-for="(num, index) in nums" :key="index">
+                Item {{index}}：{{num}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+           el: "#app",
+           data: {
+                users: [
+                    {name: "刘岩", gender: "女", age: 21},
+                    {name: "张三", gender: "男", age: 18},
+                    {name: "范冰冰", gender: "女", age: 24},
+                    {name: "刘亦菲", gender: "女", age: 18},
+                    {name: "古力娜扎", gender: "女", age: 25}
+                ],
+                nums: [1,2,3,4]
+           }
+        });
+    </script>
+</body>
+</html>

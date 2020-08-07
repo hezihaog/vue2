@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- v-bind指令，为标签的属性绑定值，插值是给标签体里面绑定 -->
+    <!-- v-bind指令的格式：v-bind:属性名=要绑定的变量的名称 -->
+    <!-- v-bind指令，可以简写，不写v-bind，直接一个:，例如v-bind:class=""，可以简写成:class="" -->
+    <!-- v-bind指令是单向绑定，就是V层数据变动，不会影响M层数据，就是不会同步 -->
+    <div id="app">
+        <!-- 动态绑定超链接 -->
+        <a v-bind:href="link">gogogo {{link}}</a>
+        <!-- 动态绑定class，语法：{class名: 控制的变量名, class名: 控制的变量名} -->
+        <!-- 动态绑定style，语法：{style名: 控制的变量名, style名: 控制的变量名} -->
+        <!-- 如果遇到用-分割的，可以转换为驼峰，例如font-size，变为fontSize -->
+        <span v-bind:class="{active:isActive, 'text-danger':hasError}"
+        v-bind:style="{color: color1,fontSize: size}">你好</span>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                link: "http://www.baidu.com",
+                isActive: true,
+                hasError: true,
+                color1: 'red',
+                size: '36px'
+            }
+        })
+    </script>
+</body>
+</html>

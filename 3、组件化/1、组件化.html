@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件化</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用局部的自定义组件 -->
+        <counter></counter>
+        <!-- 使用全局的自定义组件 -->
+        <button-counter></button-counter>
+    </div>
+    <script>
+        //1、全局声明注册一个组件
+        Vue.component("counter", {
+            template: `<button @click="count++">我被点击了 {{count}} 次</button>`,
+            //注意data，返回的是一个方法，里面返回一个对象，这样每个组件之间的数据都是隔离的
+            data() {
+                return  {
+                    count: 1
+                }
+            }
+        });
+        //2、局部声明一个组件
+        const buttonCounter = {
+            template: `<button @click="count++">~~~~ 我被点击了 {{count}} 次 ~~~~</button>`,
+            //注意data，返回的是一个方法，里面返回一个对象，这样每个组件之间的数据都是隔离的
+            data() {
+                return  {
+                    count: 1
+                }
+            }
+        };
+        var vm = new Vue({
+           el: "#app",
+           data: {
+                count: 1
+           },
+           components: {
+                //注册局部组件，键值对方式注册
+                'button-counter': buttonCounter
+           }
+        });
+    </script>
+</body>
+</html>

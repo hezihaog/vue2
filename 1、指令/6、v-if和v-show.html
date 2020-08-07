@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if和v-show</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-if：顾名思义，条件判断，当得到的结果为true时，所在元素才会被渲染（切换时，是对DOM进行移除和添加，所以不经常切换的，使用这个）
+        v-show：当得到的结果为true时，所在的元素才会显示（切换显示和不显示，使用display属性来切换，经常切换的，则使用这个）
+     -->
+    <div id="app">
+        <button @click="show = !show">点我呀</button>
+        <!-- 使用v-if显示 -->
+        <h1 v-if="show">if=看到我</h1>
+        <!-- 使用v-show显示 -->
+        <h1 v-show="show">show=看到我</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+           el: "#app" ,
+           data: {
+                show: true
+           }
+        });
+    </script>
+</body>
+</html>
